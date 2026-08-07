@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Pedido de Livros - EBI 2027</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-section" class="card">
+        <h2>Acesso do Bloco</h2>
+        <input type="text" id="email-login" placeholder="Acesso do Bloco (Ex: VendaNova)" required>
+        <button id="btn-entrar">Entrar</button>
+    </div>
+
+    <div id="form-section" class="card" style="display: none;">
+        <h2>Pedido de Livros - EBI</h2>
+        
+        <div class="info-box">
+            <strong>Instrução Operacional:</strong> Informe a quantidade desejada de cada livro para a sua igreja. Se não quiser um determinado livro, deixe como 0.
+        </div>
+
+        <hr>
+
+        <form id="form-levantamento">
+            <fieldset>
+                <legend>Localidade</legend>
+                
+                <label for="seletor-regiao">Região:</label>
+                <select id="seletor-regiao" required disabled>
+                    <option value="">Selecione primeiro o login...</option>
+                </select>
+
+                <label for="seletor-igreja">Igreja (Cenáculo):</label>
+                <select id="seletor-igreja" required disabled>
+                    <option value="">Selecione primeiro a região...</option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+                <legend>Livros Solicitados</legend>
+                <div class="info-box" style="background-color: #e6f7ff; border-left-color: #1890ff; color: #0050b3; margin-bottom: 20px;">
+                    <strong>Instrução:</strong> Coloque a quantidade que deseja pedir de cada título abaixo.
+                </div>
+                
+                <div class="livros-grid">
+                    <div class="input-group">
+                        <label for="livro-dois-alicerces">Os Dois Alicerces:</label>
+                        <input type="number" id="livro-dois-alicerces" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-passos-jesus">Nos Passos de Jesus para Adolescentes:</label>
+                        <input type="number" id="livro-passos-jesus" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-pasta-ebi">Pasta EBI:</label>
+                        <input type="number" id="livro-pasta-ebi" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-agenda-floral">Agenda Floral EBI:</label>
+                        <input type="number" id="livro-agenda-floral" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-tres-em-um">Somos Três Em Um:</label>
+                        <input type="number" id="livro-tres-em-um" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-descobrindo-arrependimento">Descobrindo o Arrependimento:</label>
+                        <input type="number" id="livro-descobrindo-arrependimento" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-descobrindo-avivamento">Descobrindo o Avivamento:</label>
+                        <input type="number" id="livro-descobrindo-avivamento" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-descobrindo-fruto">Descobrindo o fruto do Espírito:</label>
+                        <input type="number" id="livro-descobrindo-fruto" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-descobrindo-carater">Descobrindo o Caráter de Deus:</label>
+                        <input type="number" id="livro-descobrindo-carater" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-ovelha-perdida">A Ovelha Perdida:</label>
+                        <input type="number" id="livro-ovelha-perdida" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-talentos">Os Talentos:</label>
+                        <input type="number" id="livro-talentos" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-semeador">O Semeador - Livro Para Colorir:</label>
+                        <input type="number" id="livro-semeador" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-filho-dono">O filho do dono:</label>
+                        <input type="number" id="livro-filho-dono" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-miguel-escolhas">Miguel e as escolhas:</label>
+                        <input type="number" id="livro-miguel-escolhas" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-bom-samaritano">O bom samaritano:</label>
+                        <input type="number" id="livro-bom-samaritano" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-grao-mostarda">O grão de mostarda (Colorir):</label>
+                        <input type="number" id="livro-grao-mostarda" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-filho-prodigo">O Filho Pródigo:</label>
+                        <input type="number" id="livro-filho-prodigo" class="input-livro" min="0" value="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="livro-tesouro-escondido">O Tesouro Escondido:</label>
+                        <input type="number" id="livro-tesouro-escondido" class="input-livro" min="0" value="0" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit">Enviar Pedido</button>
+        </form>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
