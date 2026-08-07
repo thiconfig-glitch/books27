@@ -242,6 +242,7 @@ document.getElementById('btn-entrar').addEventListener('click', async (e) => {
             document.getElementById('form-section').style.display = 'block';
 
             carregarRegioes(blocoAtivo);
+            atualizarProgressoUI();
         } catch (error) {
             console.error("Erro ao carregar dados:", error);
             alert("Erro ao conectar com o banco de dados.");
@@ -256,6 +257,21 @@ document.getElementById('btn-entrar').addEventListener('click', async (e) => {
 
 const seletorRegiao = document.getElementById('seletor-regiao');
 const seletorIgreja = document.getElementById('seletor-igreja');
+
+function atualizarProgressoUI() {
+    let totalCenaculos = 0;
+    Object.values(hierarquiaIgrejas[blocoAtivo]).forEach(igrejasDaRegiao => {
+        totalCenaculos += igrejasDaRegiao.length;
+    });
+
+    const enviados = registrosDesignados.length;
+    const faltam = totalCenaculos - enviados;
+
+    const divProgresso = document.getElementById('progresso-bloco');
+    if (divProgresso) {
+        divProgresso.innerHTML = `<strong>Progresso de ${blocoAtivo}:</strong> ${enviados}/${totalCenaculos} cenáculos atendidos (Faltam ${faltam})`;
+    }
+}
 
 function carregarRegioes(bloco) {
     seletorRegiao.innerHTML = '<option value="">Selecione a Região...</option>';
@@ -325,6 +341,9 @@ document.getElementById('form-levantamento').addEventListener('submit', async (e
         seletorIgreja.innerHTML = '<option value="">Selecione primeiro a região...</option>';
         seletorIgreja.disabled = true;
         document.getElementById('form-levantamento').reset();
+        
+        atualizarProgressoUI();
+        
         alert("Pedido de livros enviado com sucesso!");
     } catch (error) {
         console.error("Erro ao gravar: ", error);
