@@ -189,37 +189,39 @@ let registrosGlobais = [];
 const corpoTabela = document.getElementById('corpo-tabela');
 const seletorFiltro = document.getElementById('filtro-bloco');
 
-const q = query(collection(db, "pedidos_livros_2027"), orderBy("timestamp", "desc"));
+const q = query(collection(db, "distribuicoes"), orderBy("timestamp", "desc"));
 
 onSnapshot(q, (snapshot) => {
     registrosGlobais = [];
     snapshot.forEach((docSnap) => {
-        const data = docSnap.data();
-        registrosGlobais.push({
-            id: docSnap.id,
-            timestamp: data.timestamp ? data.timestamp.toDate() : new Date(),
-            bloco: data.bloco,
-            regiao: data.regiao,
-            igreja: data.igreja,
-            doisAlicerces: data.doisAlicerces || 0,
-            passosJesus: data.passosJesus || 0,
-            pastaEbi: data.pastaEbi || 0,
-            agendaFloral: data.agendaFloral || 0,
-            tresEmUm: data.tresEmUm || 0,
-            descobrindoArrependimento: data.descobrindoArrependimento || 0,
-            descobrindoAvivamento: data.descobrindoAvivamento || 0,
-            descobrindoFruto: data.descobrindoFruto || 0,
-            descobrindoCarater: data.descobrindoCarater || 0,
-            ovelhaPerdida: data.ovelhaPerdida || 0,
-            talentos: data.talentos || 0,
-            semeador: data.semeador || 0,
-            filhoDono: data.filhoDono || 0,
-            miguelEscolhas: data.miguelEscolhas || 0,
-            bomSamaritano: data.bomSamaritano || 0,
-            graoMostarda: data.graoMostarda || 0,
-            filhoProdigo: data.filhoProdigo || 0,
-            tesouroEscondido: data.tesouroEscondido || 0
-        });
+        if (docSnap.id.startsWith("LIVRO27_")) {
+            const data = docSnap.data();
+            registrosGlobais.push({
+                id: docSnap.id,
+                timestamp: data.timestamp ? data.timestamp.toDate() : new Date(),
+                bloco: data.bloco,
+                regiao: data.regiao,
+                igreja: data.igreja,
+                doisAlicerces: data.doisAlicerces || 0,
+                passosJesus: data.passosJesus || 0,
+                pastaEbi: data.pastaEbi || 0,
+                agendaFloral: data.agendaFloral || 0,
+                tresEmUm: data.tresEmUm || 0,
+                descobrindoArrependimento: data.descobrindoArrependimento || 0,
+                descobrindoAvivamento: data.descobrindoAvivamento || 0,
+                descobrindoFruto: data.descobrindoFruto || 0,
+                descobrindoCarater: data.descobrindoCarater || 0,
+                ovelhaPerdida: data.ovelhaPerdida || 0,
+                talentos: data.talentos || 0,
+                semeador: data.semeador || 0,
+                filhoDono: data.filhoDono || 0,
+                miguelEscolhas: data.miguelEscolhas || 0,
+                bomSamaritano: data.bomSamaritano || 0,
+                graoMostarda: data.graoMostarda || 0,
+                filhoProdigo: data.filhoProdigo || 0,
+                tesouroEscondido: data.tesouroEscondido || 0
+            });
+        }
     });
     
     atualizarFiltros();
@@ -253,7 +255,7 @@ document.getElementById('btn-limpar-tudo').addEventListener('click', async () =>
             try {
                 let apagados = 0;
                 for (const reg of registrosGlobais) {
-                    await deleteDoc(doc(db, "pedidos_livros_2027", reg.id));
+                    await deleteDoc(doc(db, "distribuicoes", reg.id));
                     apagados++;
                     btn.textContent = `Apagando (${apagados}/${total})...`;
                 }
@@ -274,7 +276,7 @@ document.getElementById('btn-limpar-tudo').addEventListener('click', async () =>
 window.excluirRegistro = async (id) => {
     if (confirm("Tem certeza que deseja excluir este registro? Essa ação não pode ser desfeita.")) {
         try {
-            await deleteDoc(doc(db, "pedidos_livros_2027", id));
+            await deleteDoc(doc(db, "distribuicoes", id));
         } catch (error) {
             console.error("Erro ao excluir:", error);
             alert("Erro ao excluir o registro.");

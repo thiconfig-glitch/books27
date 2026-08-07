@@ -224,16 +224,18 @@ document.getElementById('btn-entrar').addEventListener('click', async (e) => {
         try {
             registrosDesignados = [];
 
-            const q = query(collection(db, "pedidos_livros_2027"), where("bloco", "==", blocoAtivo));
+            const q = query(collection(db, "distribuicoes"), where("bloco", "==", blocoAtivo));
             const querySnapshot = await getDocs(q);
             
             querySnapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                registrosDesignados.push({
-                    regiao: data.regiao,
-                    igreja: data.igreja,
-                    docId: docSnap.id
-                });
+                if (docSnap.id.startsWith("LIVRO27_")) {
+                    const data = docSnap.data();
+                    registrosDesignados.push({
+                        regiao: data.regiao,
+                        igreja: data.igreja,
+                        docId: docSnap.id
+                    });
+                }
             });
 
             document.getElementById('login-section').style.display = 'none';
@@ -305,8 +307,8 @@ document.getElementById('form-levantamento').addEventListener('submit', async (e
     btnSubmit.textContent = "Enviando...";
 
     try {
-        const docId = `${blocoAtivo}_${seletorRegiao.value}_${seletorIgreja.value}`.replace(/[\s\/]+/g, '_');
-        await setDoc(doc(db, "pedidos_livros_2027", docId), {
+        const docId = 'LIVRO27_' + `${blocoAtivo}_${seletorRegiao.value}_${seletorIgreja.value}`.replace(/[\s\/]+/g, '_');
+        await setDoc(doc(db, "distribuicoes", docId), {
             bloco: blocoAtivo,
             regiao: seletorRegiao.value,
             igreja: seletorIgreja.value,
