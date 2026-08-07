@@ -259,17 +259,15 @@ const seletorRegiao = document.getElementById('seletor-regiao');
 const seletorIgreja = document.getElementById('seletor-igreja');
 
 function atualizarProgressoUI() {
-    let totalCenaculos = 0;
-    Object.values(hierarquiaIgrejas[blocoAtivo]).forEach(igrejasDaRegiao => {
-        totalCenaculos += igrejasDaRegiao.length;
-    });
-
-    const enviados = registrosDesignados.length;
-    const faltam = totalCenaculos - enviados;
+    const totalRegioes = Object.keys(hierarquiaIgrejas[blocoAtivo]).length;
+    
+    // Pega as regiões únicas que já enviaram pelo menos um pedido
+    const regioesEnviadas = [...new Set(registrosDesignados.map(r => r.regiao))].length;
+    const faltam = totalRegioes - regioesEnviadas;
 
     const divProgresso = document.getElementById('progresso-bloco');
     if (divProgresso) {
-        divProgresso.innerHTML = `<strong>Progresso de ${blocoAtivo}:</strong> ${enviados}/${totalCenaculos} cenáculos atendidos (Faltam ${faltam})`;
+        divProgresso.innerHTML = `<strong>Progresso de ${blocoAtivo}:</strong> ${regioesEnviadas}/${totalRegioes} regiões atendidas (Faltam ${faltam})`;
     }
 }
 
