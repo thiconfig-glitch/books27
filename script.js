@@ -308,7 +308,12 @@ document.getElementById('form-levantamento').addEventListener('submit', async (e
         bomSamaritano: parseInt(document.getElementById('livro-bom-samaritano').value) || 0,
         graoMostarda: parseInt(document.getElementById('livro-grao-mostarda').value) || 0,
         filhoProdigo: parseInt(document.getElementById('livro-filho-prodigo').value) || 0,
-        tesouroEscondido: parseInt(document.getElementById('livro-tesouro-escondido').value) || 0
+        tesouroEscondido: parseInt(document.getElementById('livro-tesouro-escondido').value) || 0,
+        historiaDavi: parseInt(document.getElementById('livro-historia-davi').value) || 0,
+        viuvaPerseverante: parseInt(document.getElementById('livro-viuva-perseverante').value) || 0,
+        bernardoFormigas: parseInt(document.getElementById('livro-bernardo-formigas').value) || 0,
+        georgeMundoPortao: parseInt(document.getElementById('livro-george-mundo-portao').value) || 0,
+        duduCriacao: parseInt(document.getElementById('livro-dudu-criacao').value) || 0
     };
 
     const jaExiste = registrosDesignados.some(r => r.igreja === seletorIgreja.value && r.regiao === seletorRegiao.value);
