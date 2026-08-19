@@ -224,7 +224,9 @@ onSnapshot(q, (snapshot) => {
                 viuvaPerseverante: data.viuvaPerseverante || 0,
                 bernardoFormigas: data.bernardoFormigas || 0,
                 georgeMundoPortao: data.georgeMundoPortao || 0,
-                duduCriacao: data.duduCriacao || 0
+                duduCriacao: data.duduCriacao || 0,
+                dezVirgens: data.dezVirgens || 0,
+                bibliaCapaDura: data.bibliaCapaDura || 0
             });
         }
     });
@@ -330,7 +332,7 @@ function renderizarTabela(dados) {
 
     dados.forEach(reg => {
         const dataFormatada = reg.timestamp.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
-        const totalLivros = reg.doisAlicerces + reg.passosJesus + reg.pastaEbi + reg.agendaFloral + reg.tresEmUm + reg.descobrindoArrependimento + reg.descobrindoAvivamento + reg.descobrindoFruto + reg.descobrindoCarater + reg.ovelhaPerdida + reg.talentos + reg.semeador + reg.filhoDono + reg.miguelEscolhas + reg.bomSamaritano + reg.graoMostarda + reg.filhoProdigo + reg.tesouroEscondido + reg.historiaDavi + reg.viuvaPerseverante + reg.bernardoFormigas + reg.georgeMundoPortao + reg.duduCriacao;
+        const totalLivros = reg.doisAlicerces + reg.passosJesus + reg.pastaEbi + reg.agendaFloral + reg.tresEmUm + reg.descobrindoArrependimento + reg.descobrindoAvivamento + reg.descobrindoFruto + reg.descobrindoCarater + reg.ovelhaPerdida + reg.talentos + reg.semeador + reg.filhoDono + reg.miguelEscolhas + reg.bomSamaritano + reg.graoMostarda + reg.filhoProdigo + reg.tesouroEscondido + reg.historiaDavi + reg.viuvaPerseverante + reg.bernardoFormigas + reg.georgeMundoPortao + reg.duduCriacao + reg.dezVirgens + reg.bibliaCapaDura;
 
         corpoTabela.innerHTML += `
             <tr>
@@ -390,13 +392,13 @@ document.getElementById('btn-exportar').addEventListener('click', () => {
     });
 
     let csvContent = `RELATORIO DE PEDIDO DE LIVROS - EBI 2027\n`;
-    csvContent += `Data;Bloco;Regiao;Cenaculo;Dois Alicerces;Passos Jesus;Pasta EBI;Agenda Floral;Tres em Um;Desc Arrependimento;Desc Avivamento;Desc Fruto;Desc Carater;Ovelha Perdida;Talentos;Semeador;Filho Dono;Miguel Escolhas;Bom Samaritano;Grao Mostarda;Filho Prodigo;Tesouro Escondido;Historia de Davi;Viuva Perseverante;Bernardo e o Segredo das Formigas;George e o Mundo Alem do Portao;Dudu e os 7 Dias da Criacao;TOTAL DE LIVROS\n`;
+    csvContent += `Data;Bloco;Regiao;Cenaculo;Dois Alicerces;Passos Jesus;Pasta EBI;Agenda Floral;Tres em Um;Desc Arrependimento;Desc Avivamento;Desc Fruto;Desc Carater;Ovelha Perdida;Talentos;Semeador;Filho Dono;Miguel Escolhas;Bom Samaritano;Grao Mostarda;Filho Prodigo;Tesouro Escondido;Historia de Davi;Viuva Perseverante;Bernardo e o Segredo das Formigas;George e o Mundo Alem do Portao;Dudu e os 7 Dias da Criacao;As 10 Virgens;Biblia Capa Dura;TOTAL DE LIVROS\n`;
 
     dadosParaExportar.forEach(reg => {
         const dataFormatada = reg.timestamp.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).replace(',', '');
-        const totalLivros = reg.doisAlicerces + reg.passosJesus + reg.pastaEbi + reg.agendaFloral + reg.tresEmUm + reg.descobrindoArrependimento + reg.descobrindoAvivamento + reg.descobrindoFruto + reg.descobrindoCarater + reg.ovelhaPerdida + reg.talentos + reg.semeador + reg.filhoDono + reg.miguelEscolhas + reg.bomSamaritano + reg.graoMostarda + reg.filhoProdigo + reg.tesouroEscondido + reg.historiaDavi + reg.viuvaPerseverante + reg.bernardoFormigas + reg.georgeMundoPortao + reg.duduCriacao;
+        const totalLivros = reg.doisAlicerces + reg.passosJesus + reg.pastaEbi + reg.agendaFloral + reg.tresEmUm + reg.descobrindoArrependimento + reg.descobrindoAvivamento + reg.descobrindoFruto + reg.descobrindoCarater + reg.ovelhaPerdida + reg.talentos + reg.semeador + reg.filhoDono + reg.miguelEscolhas + reg.bomSamaritano + reg.graoMostarda + reg.filhoProdigo + reg.tesouroEscondido + reg.historiaDavi + reg.viuvaPerseverante + reg.bernardoFormigas + reg.georgeMundoPortao + reg.duduCriacao + reg.dezVirgens + reg.bibliaCapaDura;
         
-        csvContent += `${dataFormatada};${reg.bloco};${reg.regiao};${reg.igreja};${reg.doisAlicerces};${reg.passosJesus};${reg.pastaEbi};${reg.agendaFloral};${reg.tresEmUm};${reg.descobrindoArrependimento};${reg.descobrindoAvivamento};${reg.descobrindoFruto};${reg.descobrindoCarater};${reg.ovelhaPerdida};${reg.talentos};${reg.semeador};${reg.filhoDono};${reg.miguelEscolhas};${reg.bomSamaritano};${reg.graoMostarda};${reg.filhoProdigo};${reg.tesouroEscondido};${reg.historiaDavi};${reg.viuvaPerseverante};${reg.bernardoFormigas};${reg.georgeMundoPortao};${reg.duduCriacao};${totalLivros}\n`;
+        csvContent += `${dataFormatada};${reg.bloco};${reg.regiao};${reg.igreja};${reg.doisAlicerces};${reg.passosJesus};${reg.pastaEbi};${reg.agendaFloral};${reg.tresEmUm};${reg.descobrindoArrependimento};${reg.descobrindoAvivamento};${reg.descobrindoFruto};${reg.descobrindoCarater};${reg.ovelhaPerdida};${reg.talentos};${reg.semeador};${reg.filhoDono};${reg.miguelEscolhas};${reg.bomSamaritano};${reg.graoMostarda};${reg.filhoProdigo};${reg.tesouroEscondido};${reg.historiaDavi};${reg.viuvaPerseverante};${reg.bernardoFormigas};${reg.georgeMundoPortao};${reg.duduCriacao};${reg.dezVirgens};${reg.bibliaCapaDura};${totalLivros}\n`;
     });
 
     const bom = "\uFEFF";

@@ -233,7 +233,8 @@ document.getElementById('btn-entrar').addEventListener('click', async (e) => {
                     registrosDesignados.push({
                         regiao: data.regiao,
                         igreja: data.igreja,
-                        docId: docSnap.id
+                        docId: docSnap.id,
+                        livros: data
                     });
                 }
             });
@@ -285,6 +286,56 @@ seletorRegiao.addEventListener('change', (e) => {
     } else {
         seletorIgreja.disabled = true;
     }
+    document.querySelectorAll('.input-livro').forEach(input => input.value = 0);
+    document.querySelector('button[type="submit"]').textContent = "Enviar Pedido";
+});
+
+seletorIgreja.addEventListener('change', (e) => {
+    const btnSubmit = document.querySelector('button[type="submit"]');
+    const igrejaSelecionada = e.target.value;
+    const regiaoSelecionada = seletorRegiao.value;
+    
+    if (!igrejaSelecionada) {
+        document.querySelectorAll('.input-livro').forEach(input => input.value = 0);
+        btnSubmit.textContent = "Enviar Pedido";
+        return;
+    }
+    
+    const registroExistente = registrosDesignados.find(r => r.igreja === igrejaSelecionada && r.regiao === regiaoSelecionada);
+    
+    if (registroExistente && registroExistente.livros) {
+        const l = registroExistente.livros;
+        document.getElementById('livro-dois-alicerces').value = l.doisAlicerces || 0;
+        document.getElementById('livro-passos-jesus').value = l.passosJesus || 0;
+        document.getElementById('livro-pasta-ebi').value = l.pastaEbi || 0;
+        document.getElementById('livro-agenda-floral').value = l.agendaFloral || 0;
+        document.getElementById('livro-tres-em-um').value = l.tresEmUm || 0;
+        document.getElementById('livro-descobrindo-arrependimento').value = l.descobrindoArrependimento || 0;
+        document.getElementById('livro-descobrindo-avivamento').value = l.descobrindoAvivamento || 0;
+        document.getElementById('livro-descobrindo-fruto').value = l.descobrindoFruto || 0;
+        document.getElementById('livro-descobrindo-carater').value = l.descobrindoCarater || 0;
+        document.getElementById('livro-ovelha-perdida').value = l.ovelhaPerdida || 0;
+        document.getElementById('livro-talentos').value = l.talentos || 0;
+        document.getElementById('livro-semeador').value = l.semeador || 0;
+        document.getElementById('livro-filho-dono').value = l.filhoDono || 0;
+        document.getElementById('livro-miguel-escolhas').value = l.miguelEscolhas || 0;
+        document.getElementById('livro-bom-samaritano').value = l.bomSamaritano || 0;
+        document.getElementById('livro-grao-mostarda').value = l.graoMostarda || 0;
+        document.getElementById('livro-filho-prodigo').value = l.filhoProdigo || 0;
+        document.getElementById('livro-tesouro-escondido').value = l.tesouroEscondido || 0;
+        document.getElementById('livro-historia-davi').value = l.historiaDavi || 0;
+        document.getElementById('livro-viuva-perseverante').value = l.viuvaPerseverante || 0;
+        document.getElementById('livro-bernardo-formigas').value = l.bernardoFormigas || 0;
+        document.getElementById('livro-george-mundo-portao').value = l.georgeMundoPortao || 0;
+        document.getElementById('livro-dudu-criacao').value = l.duduCriacao || 0;
+        document.getElementById('livro-dez-virgens').value = l.dezVirgens || 0;
+        document.getElementById('livro-biblia-capa-dura').value = l.bibliaCapaDura || 0;
+        
+        btnSubmit.textContent = "Atualizar Pedido";
+    } else {
+        document.querySelectorAll('.input-livro').forEach(input => input.value = 0);
+        btnSubmit.textContent = "Enviar Pedido";
+    }
 });
 
 document.getElementById('form-levantamento').addEventListener('submit', async (e) => {
@@ -313,17 +364,14 @@ document.getElementById('form-levantamento').addEventListener('submit', async (e
         viuvaPerseverante: parseInt(document.getElementById('livro-viuva-perseverante').value) || 0,
         bernardoFormigas: parseInt(document.getElementById('livro-bernardo-formigas').value) || 0,
         georgeMundoPortao: parseInt(document.getElementById('livro-george-mundo-portao').value) || 0,
-        duduCriacao: parseInt(document.getElementById('livro-dudu-criacao').value) || 0
+        duduCriacao: parseInt(document.getElementById('livro-dudu-criacao').value) || 0,
+        dezVirgens: parseInt(document.getElementById('livro-dez-virgens').value) || 0,
+        bibliaCapaDura: parseInt(document.getElementById('livro-biblia-capa-dura').value) || 0
     };
 
-    const jaExiste = registrosDesignados.some(r => r.igreja === seletorIgreja.value && r.regiao === seletorRegiao.value);
-    if (jaExiste) {
-        alert("Este cenáculo já possui um pedido de livros enviado.");
-        return;
-    }
-
     btnSubmit.disabled = true;
-    btnSubmit.textContent = "Enviando...";
+    const isUpdate = registrosDesignados.some(r => r.igreja === seletorIgreja.value && r.regiao === seletorRegiao.value);
+    btnSubmit.textContent = isUpdate ? "Atualizando..." : "Enviando...";
 
     try {
         const docId = 'LIVRO27_' + `${blocoAtivo}_${seletorRegiao.value}_${seletorIgreja.value}`.replace(/[\s\/]+/g, '_');
@@ -335,11 +383,17 @@ document.getElementById('form-levantamento').addEventListener('submit', async (e
             timestamp: serverTimestamp()
         });
 
-        registrosDesignados.push({
-            regiao: seletorRegiao.value, 
-            igreja: seletorIgreja.value, 
-            docId: docId
-        });
+        const indexExistente = registrosDesignados.findIndex(r => r.igreja === seletorIgreja.value && r.regiao === seletorRegiao.value);
+        if (indexExistente !== -1) {
+            registrosDesignados[indexExistente].livros = livros;
+        } else {
+            registrosDesignados.push({
+                regiao: seletorRegiao.value, 
+                igreja: seletorIgreja.value, 
+                docId: docId,
+                livros: livros
+            });
+        }
 
         seletorIgreja.innerHTML = '<option value="">Selecione primeiro a região...</option>';
         seletorIgreja.disabled = true;
